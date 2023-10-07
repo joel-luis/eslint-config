@@ -15,8 +15,6 @@ jobs:
           node-version: 16
       - run: npm ci
     
-    name: Create Release
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
