@@ -1,8 +1,8 @@
 {
   "name": "@joel-luis/eslint-config",
-  "version": "0.1.7",
+  "version": "0.1.0",
   "private": false,
-  "description": "ESLint configuration used by Rocketseat.",
+  "description": "ESLint configuration used by Joel.",
   "main": "index.js",
   "license": "MIT",
   "repository": {
