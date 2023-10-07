@@ -1,5 +1,5 @@
 {
-  "name": "@joel-luis/eslint-config",
+  "name": "@joel-luis/eslint-configs",
   "version": "1.0.0",
   "private": false,
   "description": "ESLint configuration used by Joel.",
