@@ -62,7 +62,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
 
-  create-rel:
+  create-release:
     needs: publish-package
     name: Create Release
     runs-on: ubuntu-latest
@@ -71,4 +71,4 @@ jobs:
     steps:
       - uses: rymndhng/release-on-push-action@master
         with:
-          bump_version_scheme: minor
+          bump_version_scheme: patch
