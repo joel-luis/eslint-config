@@ -16,7 +16,7 @@ jobs:
       - name: Install Packages
         run: npm i
 
-  Publish Package:
+  Publish-Package:
     needs: build
     runs-on: ubuntu-latest
 
