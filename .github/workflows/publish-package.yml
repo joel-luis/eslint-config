@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Bumping version
         uses: jpb06/bump-package@latest
