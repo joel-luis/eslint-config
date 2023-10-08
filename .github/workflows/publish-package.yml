@@ -1,4 +1,4 @@
-name: ESLINT CONFIG
+name: Deploy Package to NPM
 
 on:
   push:
@@ -13,27 +13,42 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
+      - name: Install Packages
+        run: npm i
+        run: npm ci
 
-  publish-package:
+  Publish Package:
     needs: build
     runs-on: ubuntu-latest
+
     permissions:
       packages: write
       contents: read
+
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+
+      - name: Setup NodeJs
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: "https://registry.npmjs.org"
 
       - name: Setup Github Credentials
         run: |
-          git config --global user.name 'joel-luis'
-          git config --global user.email 'joelluis73@gmail.com'
-      - run: npm ci
-      - run: npm version patch
-      - run: npm publish --access public
+          git config --global user.name $GITHUB_ACTOR
+          git config --global user.email gh-actions-${GITHUB_ACTOR}@github.com
+    
+      - name: Bump Version of package.json
+        uses: ramonpaolo/bump-version@v2.3.1
+        with: 
+          tag: ${{ github.ref_name }} # Accessing the context and get the reference_name, that in this case, is the tag that you created(ex: v1.0.0)
+          commit: true
+          branch_to_push: 'master'
+
+        run: npm version patch
+      
+      - name: Publish package to NPM
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
