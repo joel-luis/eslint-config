@@ -16,19 +16,15 @@ jobs:
       - run: npm ci
 
   publish-package:
-    needs: build
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm publish --access public
-      working-directory: my-package
+        working-directory: my-package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
