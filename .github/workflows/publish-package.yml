@@ -22,28 +22,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Checkout source code"
-        uses: "actions/checkout@v4"
-        with:
-          ref: ${{ github.ref }}
-
-      - name: "cat package.json"
-        run: cat ./package.json
-
-      - name: "Setup Node.js"
-        uses: "actions/setup-node@v3"
-        with:
-          node-version: 16
-
-      - name: "Automated Version Bump"
-        uses: "joel-luis/eslint-config@master"
-        with:
-          tag-prefix: ""
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: "cat package.json"
-        run: cat ./package.json
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: '0'
+    - uses: thepassle/changelog-enforcer@0.0.6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
   publish-package:
     needs: bump-version
