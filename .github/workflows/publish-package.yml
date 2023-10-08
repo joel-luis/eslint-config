@@ -28,7 +28,6 @@ jobs:
       - name: Bumping version
         uses: jpb06/bump-package@latest
         with:
-          lfs: true
           token: ${{ secrets.GITHUB_TOKEN }}
           should-default-to-patch: true
 
