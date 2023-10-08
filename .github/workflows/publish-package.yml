@@ -37,16 +37,18 @@ jobs:
         run: |
           git config --global user.name $GITHUB_ACTOR
           git config --global user.email gh-actions-${GITHUB_ACTOR}@github.com
-    
+
       - name: Bump Version of package.json
         uses: ramonpaolo/bump-version@v2.3.1
-        with: 
+        with:
           tag: ${{ github.ref_name }} # Accessing the context and get the reference_name, that in this case, is the tag that you created(ex: v1.0.0)
           commit: true
-          branch_to_push: 'master'
-    
-      - name: Publish package to NPM
+          branch_to_push: "master"
+
+      - name: Bump Version in NPM
         run: npm version patch
+
+      - name: Publish package to NPM
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
