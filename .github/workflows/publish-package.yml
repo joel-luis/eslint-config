@@ -30,8 +30,8 @@ jobs:
 
       - name: Setup Github Credentials
         run: |
-          git config --global user.name $GITHUB_ACTOR
-          git config --global user.email gh-actions-${GITHUB_ACTOR}@github.com
+          git config --global user.name 'joel-luis'
+          git config --global user.email 'joelluis73@gmail.com'
       - run: npm ci
       - run: npm version patch
       - run: npm publish --access public
