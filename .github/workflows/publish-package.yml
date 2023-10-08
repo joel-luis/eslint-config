@@ -22,13 +22,13 @@ jobs:
       packages: write
       contents: read
     steps:
-      - name: checkout
+        name: checkout
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: "https://registry.npmjs.org"
-      - name: publish
+        name: publish
       - run: npm ci
       - run: mpm version patch && npm publish --access public
         env:
