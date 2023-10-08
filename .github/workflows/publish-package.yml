@@ -36,7 +36,7 @@ jobs:
           node-version: 16
 
       - name: "Automated Version Bump"
-        uses: "phips28/gh-action-bump-version@master"
+        uses: "$GITHUB_ACTOR/gh-action-bump-version@master"
         with:
           tag-prefix: ""
         env:
@@ -47,6 +47,7 @@ jobs:
 
   publish-package:
     needs: bump-version
+    name: "Publish Package"
     runs-on: ubuntu-latest
 
     permissions:
