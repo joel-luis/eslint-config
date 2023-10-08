@@ -28,9 +28,8 @@ jobs:
       - name: Bumping version
         uses: jpb06/bump-package@latest
         with:
-          major-keywords: BREAKING CHANGE
-          minor-keywords: feat,minor
-          patch-keywords: fix,chore
+          lfs: true
+          token: ${{ secrets.ACCESS_TOKEN }}
           should-default-to-patch: true
 
   publish-package:
