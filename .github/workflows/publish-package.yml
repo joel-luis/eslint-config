@@ -15,7 +15,6 @@ jobs:
           node-version: 16
       - name: Install Packages
         run: npm i
-        run: npm ci
 
   Publish Package:
     needs: build
