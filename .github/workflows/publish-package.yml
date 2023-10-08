@@ -16,8 +16,37 @@ jobs:
       - name: Install Packages
         run: npm i
 
-  Publish-Package:
-    needs: build
+  bump-version:
+  needs: build
+  name: "Bump Version on master"
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: "Checkout source code"
+      uses: "actions/checkout@v2"
+      with:
+        ref: ${{ github.ref }}
+
+    - name: "cat package.json"
+      run: cat ./package.json
+
+    - name: "Setup Node.js"
+      uses: "actions/setup-node@v1"
+      with:
+        node-version: 16
+
+    - name: "Automated Version Bump"
+      uses: "phips28/gh-action-bump-version@master"
+      with:
+        tag-prefix: ""
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: "cat package.json"
+      run: cat ./package.json
+
+  publish-package:
+    needs: bump-version
     runs-on: ubuntu-latest
 
     permissions:
@@ -37,13 +66,6 @@ jobs:
         run: |
           git config --global user.name $GITHUB_ACTOR
           git config --global user.email gh-actions-${GITHUB_ACTOR}@github.com
-
-      - name: Bump Version of package.json
-        uses: ramonpaolo/bump-version@v2.3.1
-        with:
-          tag: ${{ github.ref_name }} # Accessing the context and get the reference_name, that in this case, is the tag that you created(ex: v1.0.0)
-          commit: true
-          branch_to_push: "master"
 
       - name: Bump Version in NPM
         run: npm version patch
