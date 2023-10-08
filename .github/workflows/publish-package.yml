@@ -22,12 +22,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: '0'
-    - uses: thepassle/changelog-enforcer@0.0.6
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Bumping version
+        uses: jpb06/bump-package@latest
 
   publish-package:
     needs: bump-version
